@@ -1,0 +1,50 @@
+#Initial population (m, p, g)
+!population
+1 0 0
+
+#Specific probability rates (transcription, mRNA decay, translation, protein decay, folding, gfp decay)
+!rates
+5.28 0.138 5 0 0.125 0.00318
+
+#Stoichiometric matrix. NB: the last elements MUST be followed by a semicolon
+!matrix
+1 0 0
+-1 0 0
+0 1 0
+0 -1 0
+0 -1 1
+0 0 -1;
+
+#Here I define the reactant list. In this case I say that reaction 0 (mRNA production) doesn't depend on any amount (i.e. -1); reaction 1 (mRNA decay) depends on the amount of mRNA (i.e. species 0); same for reaction 2 (protein production); reaction 3 (protein decay) depends on the amount of protein (i.e. species 1)....
+#-1 means source, i.e. reaction of tipe 0 -> A.
+#-2 means proportional to volume (e.g. mRNA production is rm*V). The volume changes in time if the cell is allowed to grow
+!reactants
+-2
+0
+0
+1
+1
+2
+
+#Here I select every how many time units I want to print the results
+!time_step
+3
+
+#Here I tell the names of the species and of the reactions (optional)
+!species_names
+m p g
+
+!reactions_names
+rm dm rp dp rg dg
+
+#Time range to report
+!time_range
+10000 30000
+
+#### CELL GROWTH PARAMETERS ###
+#Here I define the parameters for the cell growth. If this section is not specified, the cell is assumed not growing
+#The parameters are: initial volume, mean and std of cell growth rate, mean and std of added volume
+!cell_growth
+2 0 0 1.86 0.25
+#2 0.00852 0.001506 1.86 0.25
+
